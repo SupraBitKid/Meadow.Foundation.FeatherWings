@@ -58,7 +58,7 @@ namespace Meadow.Foundation.FeatherWings
         /// <param name="maxPulseAngle">The pulse angle corresponding to the maximum angle of the servo.</param>
         public AngularServo GetServo(byte portIndex, PulseAngle minPulseAngle, PulseAngle maxPulseAngle)
         {
-            if ((portIndex < 0) || (portIndex > portCount))
+            if (portIndex >= portCount)
             {
                 throw new ArgumentException($"Servo num must be between 1 and {portCount}", "num");
             }
@@ -75,7 +75,7 @@ namespace Meadow.Foundation.FeatherWings
         /// <param name="portIndex"></param>
         /// <param name="minimumPulseDuration">The minimum pulse duration for the servo.</param>
         /// <param name="maximumPulseDuration">The maximum pulse duration for the servo.</param>
-        public IContinuousRotationServo GetContinuousRotatioServo(byte portIndex, TimePeriod minimumPulseDuration, TimePeriod maximumPulseDuration)
+        public IContinuousRotationServo GetContinuousRotationServo(byte portIndex, TimePeriod minimumPulseDuration, TimePeriod maximumPulseDuration)
         {
             var pin = GetPinForPortIndex(portIndex);
 

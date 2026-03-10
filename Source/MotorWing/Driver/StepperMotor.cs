@@ -11,9 +11,6 @@ namespace Meadow.Foundation.FeatherWings
     /// </summary>
     public class StepperMotor
     {
-        private readonly IPwmPort portA;
-        private readonly IPwmPort portB;
-
         private int currentStep;
         private double rpmDelay;
         private readonly int motorSteps;
@@ -113,7 +110,7 @@ namespace Meadow.Foundation.FeatherWings
                 steps *= MICROSTEPS;
             }
 
-            while (steps >= 0)
+            while (steps > 0)
             {
                 Step(direction, style);
                 Thread.Sleep(delay);

@@ -1,5 +1,6 @@
 ﻿using Meadow.Foundation.ICs.IOExpanders;
 using Meadow.Hardware;
+using System;
 using static Meadow.Foundation.FeatherWings.MotorWing;
 
 namespace Meadow.Foundation.FeatherWings
@@ -44,6 +45,8 @@ namespace Meadow.Foundation.FeatherWings
                     in1 = controller.Pins.LED5.CreateDigitalOutputPort();
                     in2 = controller.Pins.LED6.CreateDigitalOutputPort();
                     break;
+                default:
+                    throw new ArgumentException($"Invalid motor index: {motorIndex}", nameof(motorIndex));
             }
 
             Run(Direction.Release);
@@ -66,7 +69,7 @@ namespace Meadow.Foundation.FeatherWings
                 in2.State = true;
             }
 
-            if (command == Direction.Release)
+            else if (command == Direction.Release)
             {
                 in1.State = false;
                 in2.State = false;

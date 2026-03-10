@@ -50,14 +50,14 @@ namespace Meadow.Foundation.FeatherWings
         /// </summary>
         public MagneticField3D? MagneticField3D => ((IMagnetometer)Lis3mdl).MagneticField3D;
 
-        private event EventHandler<IChangeResult<Acceleration3D>>? acceleration3dHander;
+        private event EventHandler<IChangeResult<Acceleration3D>>? acceleration3dHandler;
         private event EventHandler<IChangeResult<AngularVelocity3D>>? angularVelocity3dHandler;
-        private event EventHandler<IChangeResult<MagneticField3D>>? magneticField3dHander;
+        private event EventHandler<IChangeResult<MagneticField3D>>? magneticField3dHandler;
 
         event EventHandler<IChangeResult<Acceleration3D>> ISamplingSensor<Acceleration3D>.Updated
         {
-            add => acceleration3dHander += value;
-            remove => acceleration3dHander -= value;
+            add => acceleration3dHandler += value;
+            remove => acceleration3dHandler -= value;
         }
 
         event EventHandler<IChangeResult<AngularVelocity3D>> ISamplingSensor<AngularVelocity3D>.Updated
@@ -68,8 +68,8 @@ namespace Meadow.Foundation.FeatherWings
 
         event EventHandler<IChangeResult<MagneticField3D>> ISamplingSensor<MagneticField3D>.Updated
         {
-            add => magneticField3dHander += value;
-            remove => magneticField3dHander -= value;
+            add => magneticField3dHandler += value;
+            remove => magneticField3dHandler -= value;
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace Meadow.Foundation.FeatherWings
         {
             if (changeResult.New.Acceleration3D is { } a3d)
             {
-                acceleration3dHander?.Invoke(this, new ChangeResult<Acceleration3D>(a3d, changeResult.Old?.Acceleration3D));
+                acceleration3dHandler?.Invoke(this, new ChangeResult<Acceleration3D>(a3d, changeResult.Old?.Acceleration3D));
             }
 
             if (changeResult.New.AngularVelocity3D is { } av3d)
@@ -139,25 +139,19 @@ namespace Meadow.Foundation.FeatherWings
 
             if (changeResult.New.MagneticField3D is { } m3d)
             {
-                magneticField3dHander?.Invoke(this, new ChangeResult<MagneticField3D>(m3d, changeResult.Old?.MagneticField3D));
+                magneticField3dHandler?.Invoke(this, new ChangeResult<MagneticField3D>(m3d, changeResult.Old?.MagneticField3D));
             }
 
             base.RaiseEventsAndNotify(changeResult);
         }
 
         /// <inheritdoc/>
-        protected override Task<(Acceleration3D? Acceleration3D, AngularVelocity3D? AngularVelocity3D, MagneticField3D? MagneticField3D)> ReadSensor()
+        protected override async Task<(Acceleration3D? Acceleration3D, AngularVelocity3D? AngularVelocity3D, MagneticField3D? MagneticField3D)> ReadSensor()
         {
-            (Acceleration3D? Acceleration3D, AngularVelocity3D? AngularVelocity3D, MagneticField3D? MagneticField3D) conditions;
+            var sensor1 = await Lsm6dsox.Read();
+            var sensor2 = await Lis3mdl.Read();
 
-            var sensor1 = Lsm6dsox.Read().Result;
-            var sensor2 = Lis3mdl.Read().Result;
-
-            conditions.Acceleration3D = sensor1.Acceleration3D;
-            conditions.AngularVelocity3D = sensor1.AngularVelocity3D;
-            conditions.MagneticField3D = sensor2;
-
-            return Task.FromResult(conditions);
+            return (sensor1.Acceleration3D, sensor1.AngularVelocity3D, sensor2);
         }
 
         Task<Acceleration3D> ISensor<Acceleration3D>.Read() => ((ISensor<Acceleration3D>)Lsm6dsox).Read();

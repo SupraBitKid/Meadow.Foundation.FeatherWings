@@ -134,9 +134,21 @@ namespace Meadow.Foundation.FeatherWings
         /// <param name="y">The y position in pixels 0 indexed from the top</param>
         public void InvertPixel(int x, int y)
         {
-            byte currentBrightness = is31Fl3731.GetLedPwm(Frame, (byte)(x + y * 16));
-            byte invertedBrightness = (byte)(255 - currentBrightness);
-            DrawPixel(x, y, invertedBrightness);
+            // Apply the same coordinate transform as DrawPixel to get the correct LED index
+            int tx = x, ty = y;
+            if (tx > 7)
+            {
+                tx = 15 - tx;
+                ty += 8;
+            }
+            else
+            {
+                ty = 7 - ty;
+            }
+            (ty, tx) = (tx, ty);
+
+            byte currentBrightness = is31Fl3731.GetLedPwm(Frame, (byte)(tx + ty * 16));
+            DrawPixel(x, y, (byte)(255 - currentBrightness));
         }
 
         /// <summary>

@@ -131,7 +131,7 @@ namespace Meadow.Foundation.FeatherWings
         /// <param name="fillColor">The fillColor color which will be normalized to black/off or white/on</param>
         public void Fill(int x, int y, int width, int height, Color fillColor)
         {
-            PixelBuffer.Fill(height, x, y, width, fillColor);
+            PixelBuffer.Fill(x, y, width, height, fillColor);
         }
 
         /// <summary>

@@ -6,7 +6,7 @@ using Meadow.Hardware;
 namespace Meadow.Foundation.FeatherWings
 {
     /// <summary>
-    /// Represents Adafruits OLED Feather Wing
+    /// Represents the BBQ10 Keyboard FeatherWing
     /// </summary>
     public class KeyboardWing
     {

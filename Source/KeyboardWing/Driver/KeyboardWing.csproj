@@ -1,8 +1,8 @@
-<Project Sdk="Meadow.Sdk/1.1.0">
+﻿<Project Sdk="Meadow.Sdk/1.1.0">
   <PropertyGroup>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
     <Nullable>enable</Nullable>
-    <LangVersion>12</LangVersion>
+    <LangVersion>12.0</LangVersion>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageIcon>icon.png</PackageIcon>
@@ -19,8 +19,8 @@
     <Description>BBQ 10 Keyboard FeatherWing</Description>
   </PropertyGroup>
   <ItemGroup>
-    <None Include=".\Readme.md" Pack="true" PackagePath="" />
     <None Include="..\..\icon.png" Pack="true" PackagePath="" />
+    <None Include=".\Readme.md" Pack="true" PackagePath="" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Displays.TftSpi\Driver\Displays.TftSpi.csproj" />

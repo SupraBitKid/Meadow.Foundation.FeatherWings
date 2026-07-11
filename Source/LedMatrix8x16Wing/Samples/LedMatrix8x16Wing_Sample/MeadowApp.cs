@@ -2,6 +2,7 @@
 using Meadow.Devices;
 using Meadow.Foundation.FeatherWings;
 using Meadow.Foundation.Graphics;
+using Meadow.Peripherals.Displays;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace FeatherWings.LedMatrix8x16_Sample
             ledMatrixWing = new LedMatrix8x16Wing(Device.CreateI2cBus());
             ledMatrixWing.Clear();
 
-            graphics = new MicroGraphics(ledMatrixWing) 
+            graphics = new MicroGraphics(ledMatrixWing)
             {
                 Rotation = RotationType._90Degrees,
                 CurrentFont = new Font4x8()

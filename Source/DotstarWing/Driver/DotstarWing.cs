@@ -1,7 +1,6 @@
-﻿using Meadow.Foundation.Graphics;
-using Meadow.Foundation.Graphics.Buffers;
-using Meadow.Foundation.Leds;
+﻿using Meadow.Foundation.Leds;
 using Meadow.Hardware;
+using Meadow.Peripherals.Displays;
 using static Meadow.Foundation.Leds.Apa102;
 
 namespace Meadow.Foundation.FeatherWings
@@ -9,7 +8,7 @@ namespace Meadow.Foundation.FeatherWings
     /// <summary>
     /// Represents Adafruit's Dotstar feather wing 12x6
     /// </summary>
-    public class DotstarWing : IGraphicsDisplay
+    public class DotstarWing : IPixelDisplay
     {
         readonly Apa102 ledMatrix;
 
@@ -39,7 +38,7 @@ namespace Meadow.Foundation.FeatherWings
         public float Brightness
         {
             get => ledMatrix.Brightness;
-            set => ledMatrix.Brightness = value;  
+            set => ledMatrix.Brightness = value;
         }
 
         /// <summary>
@@ -91,14 +90,14 @@ namespace Meadow.Foundation.FeatherWings
         /// <param name="y">The y position in pixels 0 indexed from the top</param>
         /// <param name="colored">Led is on if true, off if false</param>
         public void DrawPixel(int x, int y, bool colored)
-            =>  DrawPixel(x, y, colored ? Color.White : Color.Black);
+            => DrawPixel(x, y, colored ? Color.White : Color.Black);
 
         /// <summary>
         /// Invert the color of the pixel at the given location
         /// </summary>
         /// <param name="x">The x position in pixels 0 indexed from the left</param>
         /// <param name="y">The y position in pixels 0 indexed from the top</param>
-        public void InvertPixel(int x, int y) 
+        public void InvertPixel(int x, int y)
             => ledMatrix.InvertPixel(x, y);
 
         /// <summary>

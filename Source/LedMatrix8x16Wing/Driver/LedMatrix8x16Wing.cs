@@ -1,14 +1,13 @@
-﻿using Meadow.Foundation.Graphics;
-using Meadow.Foundation.Graphics.Buffers;
-using Meadow.Foundation.ICs.IOExpanders;
+﻿using Meadow.Foundation.ICs.IOExpanders;
 using Meadow.Hardware;
+using Meadow.Peripherals.Displays;
 
 namespace Meadow.Foundation.FeatherWings
 {
     /// <summary>
     /// Represents an Adafruit Led Matrix 8x16 feather wing (HT16K33)
     /// </summary>
-    public partial class LedMatrix8x16Wing : IGraphicsDisplay
+    public partial class LedMatrix8x16Wing : IPixelDisplay
     {
         readonly Ht16k33 ht16k33;
 
@@ -157,7 +156,10 @@ namespace Meadow.Foundation.FeatherWings
         {
             Fill(0, 0, Width, Height, fillColor);
 
-            if (updateDisplay) Show();
+            if (updateDisplay)
+            {
+                Show();
+            }
         }
 
         /// <summary>
@@ -175,7 +177,7 @@ namespace Meadow.Foundation.FeatherWings
             {
                 for (int j = 0; j < height; j++)
                 {
-                    DrawPixel(i, j, isColored);
+                    DrawPixel(x + i, y + j, isColored);
                 }
             }
         }

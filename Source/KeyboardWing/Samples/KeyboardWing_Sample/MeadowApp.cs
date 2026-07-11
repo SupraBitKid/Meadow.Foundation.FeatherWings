@@ -4,6 +4,7 @@ using Meadow.Foundation.FeatherWings;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Sensors.Hid;
 using Meadow.Hardware;
+using Meadow.Peripherals.Displays;
 using System;
 using System.Threading.Tasks;
 
@@ -12,7 +13,7 @@ namespace FeatherWings.KeyboardWing_Sample
     public class MeadowApp : App<F7FeatherV2>
     {
         //<!=SNIP=>
-        
+
         KeyboardWing keyboardWing;
         MicroGraphics graphics;
 
@@ -72,7 +73,7 @@ namespace FeatherWings.KeyboardWing_Sample
                     (byte)ButtonType.Button2 => "Button 2",
                     (byte)ButtonType.Button3 => "Button 3",
                     (byte)ButtonType.Button4 => "Button 4",
-                    _  => e.AsciiValue.ToString()
+                    _ => e.AsciiValue.ToString()
                 };
             }
 
